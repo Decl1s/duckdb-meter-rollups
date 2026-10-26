@@ -12,7 +12,9 @@ DuckDB 2.0.0, uv 0.13.1. Все данные получены собственн
 | Повторы/ошибки | Noop equal batch, equal event across packages, whole-package conflict без E007, чужая БД сохранена |
 | Parquet | Round-trip читается DuckDB,3rows/840Wh до late; no-overwrite и неизменность старого snapshot после late подтверждены |
 | Публичный ZIP/запуск из ZIP | 25 allowlisted UTF-8 файлов, состав и байты ZIP сверены; из распакованного архива tests15 OK и полный smoke прошли |
-| GitHub source/CI/release | Публикацию/итог CI/вложения подтвержу отдельно; не считаю ссылки доказательством |
+| GitHub source | 25 разрешённых исходников опубликованы в public Decl1s/duckdb-meter-rollups; финальное дерево дополнительно сверяю по blob SHA |
+| CI | Run40307252089 завершён success на Ubuntu/Python3.12.15 и Windows/Python3.12.10: установка hashes,15tests,smoke,ZIP и upload artifact |
+| Release | ZIP и SHA256SUMS публикую как v0.1.0; серверные digest/size и tag записываю в локальном журнале серии после загрузки |
 
 Первый вызов unittest я сделал до завершения скачивания DuckDB: получил
 ModuleNotFoundError. Дождался окончания установки и повторил проверки успешно.
@@ -37,6 +39,11 @@ UnicodeDecodeError при чтении русских SQL-комментарие
 Я явно задал UTF-8 обоим SQL read_text. Для fsync своего временного Parquet
 использую writable r+b handle. Повторные tests/smoke и CI проверяют эти изменения.
 
-Локально Windows/GUI IDE не проверял. CI ниже фиксирую только после реального
-завершения. Нагрузку, multi-process writer, аварийный COMMIT, power loss, network FS
+Локально Windows/GUI IDE не проверял; Windows подтверждён указанным CI. Нагрузку, multi-process writer, аварийный COMMIT, power loss, network FS
 и hostile path races не проверял. Источник телеметрии/полноту/тарифы не моделирую.
+
+Итоговый [CI40307252089](https://github.com/Decl1s/duckdb-meter-rollups/actions/runs/40307252089)
+прошёл полностью на обеих ОС. Проверенный source commit:
+2da97466db370dfaf855243eae3592c33feb0b05. После него я меняю только README/VALIDATION,
+без изменения программы/workflow; docs-only commit содержит [skip ci].
+Рабочие CSV/БД/Parquet/окружение/служебные пути в публичный ZIP не входят.
