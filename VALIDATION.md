@@ -26,6 +26,12 @@ workflow file на line23. Причиной был YAML plain scalar с --only-b
 перед пробелом. Я перенёс команду в block scalar >-, без изменения приложения,
 и запустил CI новым коммитом. Итог следующего прогона зафиксирую после завершения.
 
+CI40306787814: Ubuntu прошёл tests/smoke/package, Windows остановился на setup-python:
+3.12.15 x64 не найден для Windows2025. Я проверил официальный actions/python-versions
+manifest и выбрал доступный3.12.10 только для Windows matrix. Linux сохранил3.12.15.
+Это ограничение распространения Python, а не ошибка DuckDB; итог после смены matrix
+не считаю успешным до фактического завершения.
+
 Локально Windows/GUI IDE не проверял. CI ниже фиксирую только после реального
 завершения. Нагрузку, multi-process writer, аварийный COMMIT, power loss, network FS
 и hostile path races не проверял. Источник телеметрии/полноту/тарифы не моделирую.

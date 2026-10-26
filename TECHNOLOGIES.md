@@ -29,5 +29,7 @@ pandas/pyarrow/dbt и не скачиваю extensions: autoinstall/autoload о�
 CI использует checkout 11d5960a326750d5838078e36cf38b85af677262,
 setup-python a26af69be951a213d495a4c3e4e4022e16d87065 и
 upload-artifact ea165f8d65b6e75b540449e92b4886f43607fa02 с contents:read.
-Я закрепил actions по commit SHA и Python 3.12.15; версии хостов ubuntu-latest/
+Я закрепил actions по commit SHA, Linux Python3.12.15 и Windows Python3.12.10
+(для3.12.15 нет Windows x64 артефакта в actions/python-versions manifest).
+Версии хостов ubuntu-latest/
 windows-latest управляются GitHub. Факт результатов CI — только VALIDATION.
