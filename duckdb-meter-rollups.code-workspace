@@ -1,0 +1,10 @@
+{
+  "folders": [{"path": ".", "name": "DuckDB — почасовая энергия"}],
+  "settings": {
+    "git.openRepositoryInParentFolders": "never",
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": false,
+    "files.exclude": {"**/.venv": true, "**/__pycache__": true},
+    "search.exclude": {"**/workspace": true, "**/artifacts": true}
+  }
+}

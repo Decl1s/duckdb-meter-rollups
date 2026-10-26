@@ -1,0 +1,6 @@
+[project]
+name = "duckdb-meter-rollups"
+version = "0.1.0"
+description = "Я строю почасовую витрину энергопотребления с безопасным повтором пакетов"
+requires-python = ">=3.12,<3.13"
+dependencies = ["duckdb==2.0.0"]
