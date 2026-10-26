@@ -72,7 +72,7 @@ def database(path: Path, *, create: bool = False):
         else:
             connection.execute('BEGIN')
             try:
-                connection.execute((ROOT / 'schema.sql').read_text())
+                connection.execute((ROOT / 'schema.sql').read_text(encoding='utf-8'))
                 connection.execute('COMMIT')
             except BaseException:
                 connection.execute('ROLLBACK')
@@ -110,7 +110,7 @@ def ingest(db_path: Path, input_path: Path) -> dict:
                 count = connection.execute('SELECT count(*) FROM incoming').fetchone()[0]
                 if not 1 <= count <= MAX_ROWS:
                     raise InputError('CSV_ROW_COUNT')
-                if connection.execute((ROOT / 'validate.sql').read_text()).fetchone()[0]:
+                if connection.execute((ROOT / 'validate.sql').read_text(encoding='utf-8')).fetchone()[0]:
                     raise InputError('ROW_CONTRACT')
                 connection.execute("CREATE TEMP TABLE canonical AS SELECT DISTINCT event_id,site_id,meter_id,"
                                    "strptime(occurred_at,'%Y-%m-%dT%H:%M:%SZ') AS occurred_at,"
@@ -159,7 +159,7 @@ def export_parquet(db_path: Path, output: Path) -> dict:
         with database(db_path) as connection:
             connection.execute("COPY (SELECT * FROM hourly_usage ORDER BY site_id,hour_utc) TO ? "
                                "(FORMAT PARQUET, COMPRESSION ZSTD)", [str(pending)])
-        with pending.open('rb') as stream:
+        with pending.open('r+b') as stream:
             os.fsync(stream.fileno())
         os.link(pending,output)
         if os.name == 'posix':

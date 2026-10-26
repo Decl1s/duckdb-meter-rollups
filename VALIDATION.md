@@ -32,6 +32,11 @@ manifest и выбрал доступный3.12.10 только для Windows m
 Это ограничение распространения Python, а не ошибка DuckDB; итог после смены matrix
 не считаю успешным до фактического завершения.
 
+CI40306973374: Ubuntu снова прошёл, Windows дошёл до tests и обнаружил
+UnicodeDecodeError при чтении русских SQL-комментариев через default cp1252.
+Я явно задал UTF-8 обоим SQL read_text. Для fsync своего временного Parquet
+использую writable r+b handle. Повторные tests/smoke и CI проверяют эти изменения.
+
 Локально Windows/GUI IDE не проверял. CI ниже фиксирую только после реального
 завершения. Нагрузку, multi-process writer, аварийный COMMIT, power loss, network FS
 и hostile path races не проверял. Источник телеметрии/полноту/тарифы не моделирую.
